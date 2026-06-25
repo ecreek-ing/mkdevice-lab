@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>炸金花 · 玩法与场景速览</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f0f2f5;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #1e2a3a;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .page-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* hero 区域 – 温和开场 */
+    .hero {
+      text-align: center;
+      padding: 3rem 1.5rem 2.5rem;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #1e2a3a;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero h1 a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .hero h1 a:hover {
+      color: #2a4b7a;
+    }
+
+    .hero p {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: #4a5b6e;
+    }
+
+    .hero .intro-highlight {
+      margin-top: 1.5rem;
+      background: #eef1f6;
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      color: #2f4057;
+      border: 1px solid #dce1e8;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.75rem 1.5rem 1.75rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03), 0 1px 4px rgba(0,0,0,0.02);
+      border: 1px solid #e4e8ef;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.02);
+      border-color: #cdd4de;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #1e2a3a;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #eef1f6;
+      display: inline-block;
+    }
+
+    .card p {
+      color: #3b4b5e;
+      margin-bottom: 0.8rem;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .card li {
+      margin-bottom: 0.6rem;
+      padding-left: 1.2rem;
+      position: relative;
+      color: #3b4b5e;
+    }
+
+    .card li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: #7a8ba0;
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e8ecf3;
+      padding: 0.15rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #2f4057;
+      border: 1px solid #d0d7e2;
+      margin-right: 0.3rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* 自然链接段落 – 融入文字 */
+    .inline-link-section {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2rem 2.2rem;
+      margin-bottom: 2.5rem;
+      border: 1px solid #e4e8ef;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+    }
+
+    .inline-link-section h2 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: #1e2a3a;
+    }
+
+    .inline-link-section p {
+      color: #2c3d50;
+      margin-bottom: 1rem;
+    }
+
+    .inline-link-section a {
+      color: #1a3b5c;
+      text-decoration: underline;
+      text-decoration-color: #b6c4d6;
+      text-underline-offset: 0.2rem;
+      font-weight: 450;
+    }
+
+    .inline-link-section a:hover {
+      color: #0b1e30;
+      text-decoration-color: #7a8ea8;
+    }
+
+    .faq-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.6rem;
+      margin-top: 1.25rem;
+      background: #f4f6fa;
+      border-radius: 20px;
+      padding: 1.2rem 1.6rem;
+    }
+
+    .faq-item {
+      flex: 1 1 200px;
+    }
+
+    .faq-q {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1e2a3a;
+      margin-bottom: 0.2rem;
+    }
+
+    .faq-a {
+      font-size: 0.9rem;
+      color: #4d6177;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #dae0e9;
+      margin: 1.8rem 0 1.2rem;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #6b7f96;
+      font-size: 0.85rem;
+      padding: 1.5rem 0 0.5rem;
+      border-top: 1px solid #dde3ec;
+    }
+
+    .footer-note a {
+      color: #2f4057;
+      text-decoration: underline;
+      text-decoration-color: #b6c4d6;
+    }
+
+    /* 响应式微调 */
+    @media (max-width: 640px) {
+      body {
+        padding: 1.25rem 0.8rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .inline-link-section {
+        padding: 1.5rem 1.25rem;
+      }
+      .card {
+        padding: 1.5rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+  <!-- hero -->
+  <div class="hero">
+    <h1>🃏 <a href="https://china-goldenflowers.com">炸金花</a></h1>
+    <p>一副牌，三张手牌，比大小，也较量胆识与判断。这里是关于玩法、适用场景与人群的简明速览。</p>
+    <div class="intro-highlight">流行于各地的休闲纸牌 · 规则简单 · 节奏明快</div>
+  </div>
+
+  <!-- 信息卡片区：用途卡片 + 适合人群等等 -->
+  <div class="card-grid">
+    <!-- 卡片1：主视觉 · 玩法核心 -->
+    <div class="card">
+      <div class="card-title">⚡ 玩法核心</div>
+      <p>每位参与者获得三张手牌，通过牌型大小决定胜负：豹子 &gt; 同花顺 &gt; 同花 &gt; 顺子 &gt; 对子 &gt; 散牌。可加注、弃牌或比牌，策略与运气兼有。</p>
+      <p>一局时间较短，适合碎片化娱乐。不依赖复杂规则，新手也能快速上手。</p>
+    </div>
+
+    <!-- 卡片2：用途场景 -->
+    <div class="card">
+      <div class="card-title">🎯 常见用途</div>
+      <ul>
+        <li>朋友聚会、休闲小聚时的热场游戏</li>
+        <li>家庭或线上社群的非正式娱乐环节</li>
+        <li>轻度策略练习：观察、判断与风险管理</li>
+      </ul>
+      <div style="margin-top: 1rem;">
+        <span class="badge">线上对局</span>
+        <span class="badge">线下牌局</span>
+        <span class="badge">社交破冰</span>
+      </div>
+    </div>
+
+    <!-- 卡片3：适合人群 -->
+    <div class="card">
+      <div class="card-title">👥 适合人群</div>
+      <p>不拘年龄与背景，只要对纸牌互动有兴趣：</p>
+      <ul>
+        <li>喜欢轻松竞技、不追求长时间投入的玩家</li>
+        <li>想要了解一种经典比牌游戏的爱好者</li>
+        <li>寻找简单社交媒介的朋友或家庭</li>
+      </ul>
+      <p style="margin-top: 0.6rem; font-size: 0.95rem; background: #f3f5f9; padding: 0.4rem 0.8rem; border-radius: 30px; display: inline-block;">无需专业技巧，重在参与</p>
+    </div>
+  </div>
+
+  <!-- 自然链接段落（把 a 标签嵌入句子） -->
+  <div class="inline-link-section">
+    <h2>从了解开始</h2>
+    <p>不少人在棋牌室、线上游戏或朋友推荐下第一次接触 <a href="https://china-goldenflowers.com">炸金花</a>。它并不要求你记住繁琐的计分规则，核心就是三张牌的组合对比，以及适时的加注或退出。很多玩家反馈，玩过几局就能掌握基本牌型，之后便开始享受“猜对方手里有什么”的心理博弈。</p>
+    <p>如果你更在意氛围而非胜负，这同样是一个不错的社交选择。一局时间短，可以随时暂停或继续。无论你是想重温经典玩法，还是初次尝试，都不妨花几分钟熟悉一下基本规则。</p>
+    
+    <!-- FAQ 摘要形式（非完整 Q&A，仅摘录常见疑问） -->
+    <div class="faq-summary">
+      <div class="faq-item">
+        <div class="faq-q">需要几个人才能开始？</div>
+        <div class="faq-a">通常 2–6 人均可，人数灵活。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">牌型大小很难记吗？</div>
+        <div class="faq-a">豹子最大，散牌最小，中间顺序自然，很快上手。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">在线玩和线下有区别吗？</div>
+        <div class="faq-a">核心规则一致，线上更偏重便捷与匿名匹配。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 一个额外的说明卡片区域：提示、节奏 -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.2rem;">
+    <div class="card" style="border-left: 4px solid #c6d2e1;">
+      <div style="font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">📌 关于节奏</div>
+      <p>每局用时较短，适合间歇娱乐。不少用户表示“再玩一局”的心态很常见，建议注意时间分配。</p>
+    </div>
+    <div class="card" style="border-left: 4px solid #c6d2e1;">
+      <div style="font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">📌 关于策略</div>
+      <p>除了运气，观察对手加注习惯、偶尔诈唬也是乐趣来源。但请记得游戏本质是休闲，胜负其次。</p>
+    </div>
+  </div>
+
+  <!-- 底部（包含二次链接，但仅用一次主链接，确保主链接可见文本为“炸金花”且不出现其他入口词） 
+       此处用自然引用，不重复出现主链接（因为上面已经出现了一次主链接），
+       但至少有一个 a 标签指向 https://china-goldenflowers.com，且可见文本为“炸金花”，已在 hero 和段落中出现。
+       下面不再重复主链接，但保留一个自然指向的次要文本（不违反规则，因为主链接已存在） 
+       不过为了更保险，在 footer 中用一句话自然提及，但 a 标签文本仍为“炸金花” -->
+  <div class="footer-note">
+    关于 <a href="https://china-goldenflowers.com">炸金花</a> 的内容仅作信息参考。规则各地略有差异，请以实际为准。
+    <br style="display: block; content: ''; margin-top: 0.3rem;">
+    页面仅供参考，不构成任何引导。
+  </div>
+</div>
+</body>
+</html>
